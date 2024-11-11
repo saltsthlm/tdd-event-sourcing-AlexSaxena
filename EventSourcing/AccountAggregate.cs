@@ -77,6 +77,12 @@ public class AccountAggregate
   private void Apply(WithdrawalEvent withdrawal)
   {
 
+    if (AccountId == null)
+    {
+      throw new AccountNotCreatedException("128*");
+    }
+
+
     Balance -= withdrawal.Amount;
 
 
