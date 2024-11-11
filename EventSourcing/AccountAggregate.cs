@@ -14,7 +14,7 @@ public class AccountAggregate
   public AccountStatus Status { get; set; }
   public List<LogMessage>? AccountLog { get; set; }
 
-  private AccountAggregate(){}
+  private AccountAggregate() { }
 
   public static AccountAggregate? GenerateAggregate(Event[] events)
   {
@@ -22,7 +22,7 @@ public class AccountAggregate
     {
       return null;
     }
-    
+
     var account = new AccountAggregate();
     foreach (var accountEvent in events)
     {
@@ -45,7 +45,7 @@ public class AccountAggregate
       default:
         throw new EventTypeNotSupportedException("162 ERROR_EVENT_NOT_SUPPORTED");
     }
-  } 
+  }
 
   private void Apply(AccountCreatedEvent accountCreated)
   {
@@ -57,6 +57,10 @@ public class AccountAggregate
 
   private void Apply(DepositEvent deposit)
   {
+    if (AccountId == null)
+    {
+      throw new InvalidOperationException("128*");
+    }
     Balance += deposit.Amount;
   }
 
