@@ -79,7 +79,14 @@ public class AccountAggregate
 
     if (Status != AccountStatus.Enabled)
     {
-      throw new InvalidOperationException("344*");
+      if (Status == AccountStatus.Closed)
+      {
+        throw new InvalidOperationException("502*");
+      }
+      else
+      {
+        throw new Exception("344");
+      }
     }
 
     if (MaxBalance < deposit.Amount)
@@ -98,9 +105,17 @@ public class AccountAggregate
       throw new AccountNotCreatedException("128*");
     }
 
+
     if (Status != AccountStatus.Enabled)
     {
-      throw new Exception("344");
+      if (Status == AccountStatus.Closed)
+      {
+        throw new InvalidOperationException("502*");
+      }
+      else
+      {
+        throw new Exception("344");
+      }
     }
 
     if (withdrawal.Amount > Balance)
@@ -157,9 +172,23 @@ public class AccountAggregate
 
   private void Apply(ClosureEvent closure)
   {
+    if (AccountLog == null)
+    {
+      AccountLog = new List<LogMessage>();
+    }
     if (Status != AccountStatus.Closed)
     {
       Status = AccountStatus.Closed;
     }
+
+    var wholeBalance = Math.Floor(Balance);
+
+    var log = new LogMessage(
+           Type: "CLOSURE",
+           Message: $"Reason: {closure.Reason}, Closing Balance: '{wholeBalance}'",
+           Timestamp: closure.Timestamp
+       );
+
+    AccountLog.Add(log);
   }
 }
