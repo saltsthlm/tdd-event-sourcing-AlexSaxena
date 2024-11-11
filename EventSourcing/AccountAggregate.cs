@@ -132,15 +132,19 @@ public class AccountAggregate
 
   private void Apply(ActivationEvent activation)
   {
-    Status = AccountStatus.Enabled;
 
-    var log = new LogMessage(
-         Type: "ACTIVATE",
-         Message: "Account reactivated",
-         Timestamp: activation.Timestamp
-     );
+    if (Status != AccountStatus.Enabled)
+    {
+      Status = AccountStatus.Enabled;
+      var log = new LogMessage(
+           Type: "ACTIVATE",
+           Message: "Account reactivated",
+           Timestamp: activation.Timestamp
+       );
 
-    AccountLog.Add(log);
+      AccountLog.Add(log);
+    }
+
   }
 
   private void Apply(CurrencyChangeEvent currencyChange)
