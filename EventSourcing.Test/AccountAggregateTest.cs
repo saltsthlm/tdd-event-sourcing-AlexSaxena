@@ -461,7 +461,7 @@ public class AccountAggregateTEst
       Balance = 51000,
       Currency = CurrencyType.Sek,
       CustomerId = "CUST001",
-      Status = AccountStatus.Disabled,
+      Status = AccountStatus.Enabled,
     };
 
     // Act
