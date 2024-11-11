@@ -81,6 +81,10 @@ public class AccountAggregate
     {
       throw new AccountNotCreatedException("128*");
     }
+    if (withdrawal.Amount > Balance)
+    {
+      throw new NegativeBalanceException("285*");
+    }
 
 
     Balance -= withdrawal.Amount;
