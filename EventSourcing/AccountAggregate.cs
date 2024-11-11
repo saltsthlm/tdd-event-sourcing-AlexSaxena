@@ -170,7 +170,8 @@ public class AccountAggregate
 
   private void Apply(CurrencyChangeEvent currencyChange)
   {
-    throw new NotImplementedException();
+    Currency = currencyChange.NewCurrency;
+    Balance = currencyChange.NewBalance;
   }
 
   private void Apply(ClosureEvent closure)
