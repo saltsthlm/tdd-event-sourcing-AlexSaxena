@@ -64,7 +64,6 @@ public class AccountAggregate
     {
       throw new InvalidOperationException("128*");
     }
-    // Issue Here
     if (MaxBalance < deposit.Amount)
     {
       throw new InvalidOperationException("281*");
