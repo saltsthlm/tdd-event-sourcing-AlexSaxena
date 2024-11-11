@@ -70,10 +70,17 @@ public class AccountAggregate
     {
       throw new AccountNotCreatedException("128*");
     }
+
+    if (Status != AccountStatus.Enabled)
+    {
+      throw new InvalidOperationException("344*");
+    }
+
     if (MaxBalance < deposit.Amount)
     {
       throw new MaxBalanceExceeded("281*");
     }
+
     Balance += deposit.Amount;
   }
 
@@ -84,10 +91,17 @@ public class AccountAggregate
     {
       throw new AccountNotCreatedException("128*");
     }
+
+    if (Status != AccountStatus.Enabled)
+    {
+      throw new Exception("344");
+    }
+
     if (withdrawal.Amount > Balance)
     {
       throw new NegativeBalanceException("285*");
     }
+
 
 
     Balance -= withdrawal.Amount;
