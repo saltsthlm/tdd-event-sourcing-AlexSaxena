@@ -419,7 +419,7 @@ public class AccountAggregateTEst
       Balance = 5000,
       Currency = CurrencyType.Usd,
       CustomerId = "CUST001",
-      Status = AccountStatus.Disabled,
+      Status = AccountStatus.Closed,
       AccountLog = [
         new (
           Type: "CLOSURE",
