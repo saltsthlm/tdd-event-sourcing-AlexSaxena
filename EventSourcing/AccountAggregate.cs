@@ -44,6 +44,9 @@ public class AccountAggregate
       case DepositEvent deposit:
         Apply(deposit);
         break;
+      case WithdrawalEvent withdrawal:
+        Apply(withdrawal);
+        break;
       default:
         throw new EventTypeNotSupportedException("162 ERROR_EVENT_NOT_SUPPORTED");
     }
@@ -71,9 +74,12 @@ public class AccountAggregate
     Balance += deposit.Amount;
   }
 
-  private void Apply(WithdrawalEvent wihdrawal)
+  private void Apply(WithdrawalEvent withdrawal)
   {
-    throw new NotImplementedException();
+
+    Balance -= withdrawal.Amount;
+
+
   }
 
   private void Apply(DeactivationEvent deactivation)
