@@ -56,6 +56,9 @@ public class AccountAggregate
       case ClosureEvent closure:
         Apply(closure);
         break;
+      case CurrencyChangeEvent currencyChange:
+        Apply(currencyChange);
+        break;
       default:
         throw new EventTypeNotSupportedException("162 ERROR_EVENT_NOT_SUPPORTED");
     }
