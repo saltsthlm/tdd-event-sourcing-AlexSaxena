@@ -65,11 +65,11 @@ public class AccountAggregate
   {
     if (AccountId == null)
     {
-      throw new InvalidOperationException("128*");
+      throw new AccountNotCreatedException("128*");
     }
     if (MaxBalance < deposit.Amount)
     {
-      throw new InvalidOperationException("281*");
+      throw new MaxBalanceExceeded("281*");
     }
     Balance += deposit.Amount;
   }
