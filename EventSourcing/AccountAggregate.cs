@@ -1,6 +1,7 @@
 ﻿using EventSourcing.Events;
 using EventSourcing.Exceptions;
 using EventSourcing.Models;
+using Microsoft.VisualBasic;
 
 namespace EventSourcing;
 
@@ -9,6 +10,7 @@ public class AccountAggregate
 
   public string? AccountId { get; set; }
   public decimal Balance { get; set; }
+  public decimal MaxBalance { get; set; }
   public CurrencyType Currency { get; set; }
   public string? CustomerId { get; set; }
   public AccountStatus Status { get; set; }
@@ -53,6 +55,7 @@ public class AccountAggregate
     Balance = accountCreated.InitialBalance;
     Currency = accountCreated.Currency;
     CustomerId = accountCreated.CustomerId;
+    MaxBalance = accountCreated.MaxBalance;
   }
 
   private void Apply(DepositEvent deposit)
@@ -60,6 +63,11 @@ public class AccountAggregate
     if (AccountId == null)
     {
       throw new InvalidOperationException("128*");
+    }
+    // Issue Here
+    if (MaxBalance < deposit.Amount)
+    {
+      throw new InvalidOperationException("281*");
     }
     Balance += deposit.Amount;
   }
